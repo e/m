@@ -15,6 +15,7 @@ class Experience(models.Model):
     date_to = models.DateField(blank=True, null=True)
     style = models.CharField(max_length=255, null=True, blank=True)
     cv = models.ForeignKey(CV, related_name='experiences')
+    sector = models.TextField(blank=True, null=True)
 
 
 class Paragraph(models.Model):
@@ -34,18 +35,18 @@ class PersonalData(models.Model):
     county = models.CharField(max_length=255, blank=True, null=True)
     country = models.CharField(max_length=255, blank=True, null=True)
     phone = models.CharField(max_length=255, blank=True, null=True)
-    cv = models.ForeignKey(CV, related_name='personal_data')
+    cv = models.OneToOneField(CV, related_name='personal_data')
     objective = models.TextField(null=True, blank=True)
 
 
 class Skill(models.Model):
     name = models.CharField(max_length=255)
-    person = models.ForeignKey(PersonalData, related_name='skills')
+    person = models.ForeignKey(CV, related_name='skills')
 
 
 class Technology(models.Model):
     name = models.CharField(max_length=255)
-    experience = models.ForeignKey(Experience, related_name='technologies')
+    experience = models.ForeignKey(CV, related_name='technologies')
 
 
 class Education(models.Model):
