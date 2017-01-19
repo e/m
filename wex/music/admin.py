@@ -1,3 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Song, Image
+
+
+class ImageInline(admin.StackedInline):
+    model = Image
+
+
+class SongAdmin(admin.ModelAdmin):
+    inlines = [ImageInline, ]
+admin.site.register(Song, SongAdmin)
